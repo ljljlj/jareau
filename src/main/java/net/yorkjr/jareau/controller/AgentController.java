@@ -28,12 +28,6 @@ public class AgentController {
     @RequestMapping(value = "getAgent/{agentId}", method = RequestMethod.POST)
     public String getAgentInformation(@PathVariable("agentId") long agentId, ModelMap modelMap, BindingResult result) {
         System.out.println("get agent operation hit the backend service." + agentId);
-        sqlSessionFactory.
-        CompanyAgent agentInfo = agentDAO.getCompanyAgentById(agentId);
-        modelMap.addAttribute("agentName", agentInfo.getAgentName());
-        modelMap.addAttribute("agentCompany", agentInfo.getCompanyName());
-        modelMap.addAttribute("agentTelephone", agentInfo.getTelephone());
-        modelMap.addAttribute("agentAddress", agentInfo.getAddress());
         return "agentInfo";
     }
 }
