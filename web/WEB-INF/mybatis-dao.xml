@@ -1,0 +1,28 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.apache.ibatis.submitted.rounding.Mapper">
+    <resultMap type="net.yorkjr.jareau.pojo.CompanyAgent" id="agent">
+        <id column="agent_id" property="agentId"/>
+        <result column="agent_name" property="agentName"/>
+        <result column="agent_telephone" property="telephone"/>
+        <result column="agent_address" property="address"/>
+        <result column="company_id" property="companyId"/>
+        <result column="company_name" property="companyName"/>
+        <result column="last_update" property="lastUpdate"/>
+        <result column="creation_date" property="creationDate"/>
+    </resultMap>
+
+    <select id="selectAgentById"
+            parameterType="int"
+            resultType="agent"
+            flushCache="false"
+            useCache="true"
+            timeout="10000"
+            fetchSize="256"
+            statementType="PREPARED"
+            resultSetType="FORWARD_ONLY">
+        select * from users where agent_id = #{agentId}
+    </select>
+</mapper>
