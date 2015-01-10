@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.apache.ibatis.submitted.rounding.Mapper">
-    <resultMap type="net.yorkjr.jareau.pojo.CompanyAgent" id="agent">
+    <resultMap type="net.yorkjr.jareau.pojo.CompanyAgent" id="CompanyAgent">
         <id column="agent_id" property="agentId"/>
         <result column="agent_name" property="agentName"/>
         <result column="agent_telephone" property="telephone"/>
@@ -16,7 +16,7 @@
 
     <select id="selectAgentById"
             parameterType="int"
-            resultType="agent"
+            resultType="net.yorkjr.jareau.pojo.CompanyAgent"
             flushCache="false"
             useCache="true"
             timeout="10000"
