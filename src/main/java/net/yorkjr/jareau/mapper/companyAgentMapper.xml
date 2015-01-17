@@ -1,0 +1,17 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.apache.ibatis.submitted.rounding.Mapper">
+    <select id="selectAgentById"
+            parameterType="int"
+            resultType="net.yorkjr.jareau.pojo.CompanyAgent"
+            flushCache="false"
+            useCache="true"
+            timeout="10000"
+            fetchSize="256"
+            statementType="PREPARED"
+            resultSetType="FORWARD_ONLY">
+        select * from company_agents where agent_id = #{agentId}
+    </select>
+</mapper>

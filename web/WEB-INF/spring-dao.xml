@@ -5,15 +5,16 @@
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="mapperLocations" value="WEB-INF/mybatis-dao.xml"/>
+        <property name="mapperLocations" value="classpath*:net/yorkjr/jareau/mapper/*.xml"/>
+        <property name="configLocation" value="./WEB-INF/mybatis-conf.xml"/>
     </bean>
 
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="url" value="jdbc:mysql://oscarnet.mysql.rds.aliyuncs.com:3306/edu" />
         <property name="username" value="oscar" />
         <property name="password" value="Ss1988219" />
     </bean>
+
 </beans>
+
