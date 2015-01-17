@@ -18,9 +18,11 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Question getQuestionFromId(long questionId) {
-        String questionJson = dataAccessor.getQuestionJson(questionId);
-        RawQuestion rawQuestion = new RawQuestionConverter().reverse().convert(questionJson);
-        return new QuestionFactory().from(rawQuestion);
+        QuestionEntity questionEntity = dataAccessor.getQuestionJson(questionId);
+        RawQuestion rawQuestion = new RawQuestionConverter().reverse().convert(questionEntity.getQuestionJson());
+        Question question = new QuestionFactory().from(rawQuestion);
+        question.setQuestionId(questionId);
+        return question;
     }
 
     @Override

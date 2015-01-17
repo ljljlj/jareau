@@ -14,6 +14,17 @@ public class SingleChoiceQuestion implements Question {
     private String statement;
     private List<Option> options;
     private Answer correctAnswer;
+    private long questionId;
+
+    @Override
+    public long getQuestionId() {
+        return questionId;
+    }
+
+    @Override
+    public void setQuestionId(long questionId) {
+        this.questionId = questionId;
+    }
 
     @Override
     public void initializeFrom(RawQuestion rawQuestion) {
@@ -74,6 +85,7 @@ public class SingleChoiceQuestion implements Question {
         if (correctAnswer.equals(answer)) {
             return true;
         }
+
         return false;
     }
 
