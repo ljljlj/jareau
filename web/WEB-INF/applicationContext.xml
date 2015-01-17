@@ -6,5 +6,5 @@
        <import resource="mapper-beans.xml"/>
        <import resource="services.xml"/>
        <bean id="numberFinder" class="net.yorkjr.jareau.controller.NumberFinder"/>
-
+       <bean id="questionService" class="net.yorkjr.jareau.exambank.QuestionServiceImpl"/>
 </beans>

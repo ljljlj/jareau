@@ -1,0 +1,23 @@
+{
+  "statement": "What is your name?",
+  "options": [
+    {
+      "id": 0,
+      "value": "Rick"
+    },
+    {
+      "id": 1,
+      "value": "Oscar"
+    },
+    {
+      "id": 2,
+      "value": "Junbo"
+    }
+  ],
+  "answers": [
+    {
+      "value": "0"
+    }
+  ],
+  "type": "single"
+}

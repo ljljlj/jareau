@@ -15,4 +15,8 @@
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
 
+    <bean id="questionDataAccessor" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="net.yorkjr.jareau.exambank.dao.QuestionDataAccessor" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
 </beans>

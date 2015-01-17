@@ -1,0 +1,20 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yorkjr.jareau.exambank.dao.QuestionDataAccessor">
+    <select id="getQuestionJson" resultType="java.lang.String">
+        <![CDATA[
+        select
+            QUESTION_JSON
+        from
+            QUESTIONS
+        where
+            QUESTION_ID = #{questionId}
+        ]]>
+    </select>
+
+    <insert id="createQuestion" parameterType="net.yorkjr.jareau.exambank.dao.QuestionEntity" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="questionId" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into QUESTIONS (QUESTION_JSON) values (#{questionJson})
+    </insert>
+</mapper>
