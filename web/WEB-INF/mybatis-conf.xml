@@ -8,5 +8,6 @@
     </settings>
     <mappers>
         <mapper resource="WEB-INF/mapper/QuestionDataAccessor.xml"/>
+        <mapper resource="WEB-INF/mapper/ExamBankDataAccessor.xml"/>
     </mappers>
 </configuration>

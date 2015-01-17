@@ -7,4 +7,5 @@
        <import resource="services.xml"/>
        <bean id="numberFinder" class="net.yorkjr.jareau.controller.NumberFinder"/>
        <bean id="questionService" class="net.yorkjr.jareau.exambank.QuestionServiceImpl"/>
+       <bean id="examBankService" class="net.yorkjr.jareau.exambank.ExamBankManagerImpl"/>
 </beans>

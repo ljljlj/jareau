@@ -1,0 +1,42 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.yorkjr.jareau.exambank.dao.ExamBankDataAccessor">
+    <select id="getExamBank" resultType="net.yorkjr.jareau.exambank.dao.ExamBankEntity">
+        <![CDATA[
+        select
+            *
+        from
+            EXAMBANKS
+        where
+            EXAMBANK_ID = #{examBankId}
+        ]]>
+    </select>
+
+    <select id="getQuestionsOfExamBankId" resultType="net.yorkjr.jareau.exambank.dao.QuestionEntity">
+        <![CDATA[
+        select
+            *
+        from
+            QUESTIONS
+        where
+            QUESTION_ID in (
+                ( select QUESTION_ID from EXAMBANK_QUESTIONS where EXAMBANK_ID = #{examBankId} )
+            )
+        order by QUESTION_ID
+        ]]>
+    </select>
+
+    <insert id="addQuestionIdToExamBankId" parameterType="Map">
+        <![CDATA[
+        insert into EXAMBANK_QUESTIONS (EXAMBANK_ID, QUESTION_ID) values (#{1}, #{0})
+        ]]>
+    </insert>
+
+    <insert id="createExamBank" parameterType="net.yorkjr.jareau.exambank.dao.ExamBankEntity" useGeneratedKeys="true">
+        <selectKey resultType="long" keyProperty="examBankId" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        <![CDATA[
+        insert into EXAMBANKS (NAME, DESCRIPTION) values (#{name}, #{description})
+        ]]>
+    </insert>
+</mapper>
