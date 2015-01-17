@@ -19,6 +19,6 @@ public class SingleChoiceAnswer implements Answer {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this);
+        return String.format("{answer: %s }", value);
     }
 }

@@ -18,4 +18,9 @@ public class SingleChoiceOption implements Option {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return String.format("{option: %s }", description);
+    }
 }
