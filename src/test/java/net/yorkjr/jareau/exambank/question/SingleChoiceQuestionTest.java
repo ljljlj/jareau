@@ -3,14 +3,15 @@ package net.yorkjr.jareau.exambank.question;
 import net.yorkjr.jareau.exambank.question.raw.RawAnswers;
 import net.yorkjr.jareau.exambank.question.raw.RawOption;
 import net.yorkjr.jareau.exambank.question.raw.RawQuestion;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.log4j.Logger;
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class SingleChoiceQuestionTest {
     private static final Logger log = Logger.getLogger(SingleChoiceQuestionTest.class);
@@ -37,8 +38,33 @@ public class SingleChoiceQuestionTest {
         question.initializeFrom(rawQuestion);
         log.info("Single choice question: " + question);
         Assert.assertEquals(statement, question.getStatement());
-        Assert.assertEquals(new HashSet<String>(Arrays.asList(options)), question.getOptions());
-        Assert.assertTrue(question.isAnswerCorrect(new SingleChoiceAnswer("Rick")));
+        Assert.assertThat(question.getOptions(), new IsEqualToArray(options));
         Assert.assertFalse(question.isAnswerCorrect(new SingleChoiceAnswer("Oscar")));
+    }
+
+    class IsEqualToArray extends BaseMatcher {
+        private String[] options;
+        public IsEqualToArray(String[] options) {
+            this.options = options;
+        }
+
+        @Override
+        public boolean matches(Object o) {
+            Collection<Option> optionsToCheck = (Collection<Option>) o;
+            if (options.length != optionsToCheck.size()) {
+                return false;
+            }
+            LinkedList<String> optionListToCheck = new LinkedList<String>();
+            for (Option option : optionsToCheck) {
+                optionListToCheck.add(option.getDescription());
+            }
+            HashSet<String> expectedOptions = new HashSet<String>(Arrays.asList(options));
+            return expectedOptions.containsAll(optionListToCheck);
+        }
+
+        @Override
+        public void describeTo(Description description) {
+            description.appendText(ToStringBuilder.reflectionToString(options));
+        }
     }
 }
