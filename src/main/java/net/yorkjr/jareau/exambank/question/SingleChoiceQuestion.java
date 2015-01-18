@@ -1,14 +1,17 @@
 package net.yorkjr.jareau.exambank.question;
 
+import net.yorkjr.jareau.controller.QuestionForm;
 import net.yorkjr.jareau.exambank.question.raw.RawAnswers;
 import net.yorkjr.jareau.exambank.question.raw.RawOption;
 import net.yorkjr.jareau.exambank.question.raw.RawQuestion;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class SingleChoiceQuestion implements Question {
     private String statement;
@@ -40,6 +43,25 @@ public class SingleChoiceQuestion implements Question {
                 correctAnswer = new SingleChoiceAnswer(option.getValue());
             }
             options.add(new SingleChoiceOption(isAnswer, option.getValue()));
+        }
+        this.options = options;
+    }
+
+    @Override
+    public void initializeFrom(QuestionForm questionForm) {
+        this.statement = questionForm.getStatement();
+        Map<Integer, QuestionForm.OptionForm> optionMap = questionForm.getOptionMap();
+        List<Option> options = new ArrayList<Option>(optionMap.size());
+        for (Map.Entry<Integer, QuestionForm.OptionForm> entry : optionMap.entrySet()) {
+            int index = entry.getKey();
+            QuestionForm.OptionForm optionForm = entry.getValue();
+            if (optionForm.getDescription() == null || StringUtils.isEmpty(optionForm.getDescription())) {
+                continue;
+            }
+            options.add(new SingleChoiceOption(optionForm.getIsAnswer(), optionForm.getDescription()));
+            if (optionForm.getIsAnswer()) {
+                this.correctAnswer = new SingleChoiceAnswer(optionForm.getDescription());
+            }
         }
         this.options = options;
     }

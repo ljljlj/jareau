@@ -1,14 +1,16 @@
 package net.yorkjr.jareau.controller;
 
-import net.yorkjr.jareau.controller.exambank.ExamBankForm;
 import net.yorkjr.jareau.exambank.ExamBank;
 import net.yorkjr.jareau.exambank.ExamBankManager;
 import net.yorkjr.jareau.exambank.QuestionService;
 import net.yorkjr.jareau.exambank.question.Question;
 import net.yorkjr.jareau.exambank.question.QuestionFactory;
+import net.yorkjr.jareau.exambank.question.QuestionType;
 import net.yorkjr.jareau.exambank.question.raw.RawQuestion;
 import net.yorkjr.jareau.exambank.question.raw.RawQuestionConverter;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -24,8 +26,11 @@ import java.io.InputStream;
 @Controller
 @RequestMapping("/exambank")
 public class ExamBankController {
+    private static final Logger log = Logger.getLogger(ExamBankController.class);
     @Autowired
     private ExamBankManager examBankManager;
+    @Autowired
+    private QuestionService questionService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String getExamBankList(ModelMap model) throws IOException {
@@ -50,6 +55,29 @@ public class ExamBankController {
             return "exambank/new";
         }
         long examBankId = examBankManager.createExamBank(examBank.getName(), examBank.getDescription());
+        return "redirect:/exambank/" + examBankId;
+    }
+
+    @RequestMapping(value="/{examBankId}/question/new", method = RequestMethod.GET)
+    public String getNewQuestionForExamBank(@PathVariable long examBankId, ModelMap model) {
+        ExamBank examBank = examBankManager.getExamBank(examBankId);
+        model.addAttribute("examBank", examBank);
+        model.addAttribute("questionTypes", QuestionType.values());
+        return "exambank/question/new";
+    }
+
+    @RequestMapping(value="/{examBankId}/question/add", method = RequestMethod.POST)
+    public String createQuestionForExamBank(@PathVariable long examBankId, @ModelAttribute("question") QuestionForm questionForm, BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/exambank/" + examBankId + "/question/new";
+        }
+
+        Question question = new QuestionFactory().from(questionForm);
+        long questionId = questionService.createQuestion(question);
+        question = questionService.getQuestionFromId(questionId);
+        ExamBank examBank = examBankManager.getExamBank(examBankId);
+        examBankManager.addQuestionToExamBank(question, examBank);
+        log.info(String.format("Question %s for exam bank %s saved", question, examBank));
         return "redirect:/exambank/" + examBankId;
     }
 }

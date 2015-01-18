@@ -1,5 +1,6 @@
 package net.yorkjr.jareau.exambank.question;
 
+import net.yorkjr.jareau.controller.QuestionForm;
 import net.yorkjr.jareau.exambank.question.raw.RawAnswers;
 import net.yorkjr.jareau.exambank.question.raw.RawOption;
 import net.yorkjr.jareau.exambank.question.raw.RawQuestion;
@@ -39,6 +40,39 @@ public class SingleChoiceQuestionTest {
         log.info("Single choice question: " + question);
         Assert.assertEquals(statement, question.getStatement());
         Assert.assertThat(question.getOptions(), new IsEqualToArray(options));
+        Assert.assertFalse(question.isAnswerCorrect(new SingleChoiceAnswer("Oscar")));
+    }
+
+    @Test
+    public void shouldCreateFromQuestionForm() {
+        String statement = "What is your name?";
+        String[] options = new String[] {
+                "Rick",
+                "Oscar",
+                "Junbo",
+        };
+        String answer = "Rick";
+        QuestionForm questionForm = new QuestionForm();
+        questionForm.setStatement(statement);
+        questionForm.setType("single");
+        Map<Integer,QuestionForm.OptionForm> optionMap = new HashMap<Integer, QuestionForm.OptionForm>();
+        for (int index = 0 ; index < options.length ; ++index) {
+            QuestionForm.OptionForm optionForm = new QuestionForm.OptionForm();
+            optionForm.setDescription(options[index]);
+            optionForm.setIsAnswer(false);
+            if (answer.equals(options[index])) {
+                optionForm.setIsAnswer(true);
+            }
+            optionMap.put(index, optionForm);
+        }
+        questionForm.setOptionMap(optionMap);
+
+        SingleChoiceQuestion question = new SingleChoiceQuestion();
+        question.initializeFrom(questionForm);
+        log.info("Single choice question from QuestionForm: " + question);
+        Assert.assertEquals(statement, question.getStatement());
+        Assert.assertThat(question.getOptions(), new IsEqualToArray(options));
+        Assert.assertTrue(question.isAnswerCorrect(new SingleChoiceAnswer("Rick")));
         Assert.assertFalse(question.isAnswerCorrect(new SingleChoiceAnswer("Oscar")));
     }
 

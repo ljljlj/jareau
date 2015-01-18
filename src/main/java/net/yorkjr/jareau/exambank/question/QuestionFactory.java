@@ -1,6 +1,8 @@
 package net.yorkjr.jareau.exambank.question;
 
+import net.yorkjr.jareau.controller.QuestionForm;
 import net.yorkjr.jareau.exambank.question.raw.RawQuestion;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +21,18 @@ public class QuestionFactory {
             return question;
         } catch (Exception e) {
             throw new QuestionFactoryException("Failed to create Question from raw question: " + rawQuestion, e);
+        }
+    }
+
+    public Question from(QuestionForm questionForm) {
+        try {
+            Class<? extends Question> questionClass = typeToQuestionClassMap.get(questionForm.getType());
+            Question question = questionClass.newInstance();
+            question.initializeFrom(questionForm);
+            return question;
+        } catch (Exception e) {
+            throw new QuestionFactoryException("Failed to create Question from question form: " +
+                    ToStringBuilder.reflectionToString(questionForm), e);
         }
     }
 }

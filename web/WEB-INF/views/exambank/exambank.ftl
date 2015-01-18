@@ -6,4 +6,6 @@
 <h3> ${question.statement}</h3>
 </#list>
 
+<input type="button" value="Create Question" onclick="location.href='${examBank.examBankId}/question/new.html'"
+
 </@default.layout>
