@@ -1,5 +1,6 @@
 package net.yorkjr.jareau.controller;
 
+import net.yorkjr.jareau.controller.exambank.ExamBankForm;
 import net.yorkjr.jareau.exambank.ExamBank;
 import net.yorkjr.jareau.exambank.ExamBankManager;
 import net.yorkjr.jareau.exambank.QuestionService;
@@ -11,6 +12,8 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,5 +37,19 @@ public class ExamBankController {
         ExamBank examBank = examBankManager.getExamBank(id);
         model.addAttribute("examBank", examBank);
         return "exambank/exambank";
+    }
+
+    @RequestMapping(value = "/new", method = RequestMethod.GET)
+    public String getNewExamBank(ModelMap model) {
+        return "exambank/new";
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String addExamBank(@ModelAttribute("exambank") ExamBank examBank, BindingResult result) {
+        if (result.hasErrors()) {
+            return "exambank/new";
+        }
+        long examBankId = examBankManager.createExamBank(examBank.getName(), examBank.getDescription());
+        return "redirect:/exambank/" + examBankId;
     }
 }
