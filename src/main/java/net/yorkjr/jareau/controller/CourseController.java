@@ -26,6 +26,25 @@ public class CourseController {
         return "course/course";
     }
 
+    @RequestMapping(value="/{courseId}/del")
+    public String deleteCourse(@PathVariable("courseId") int courseId, ModelMap model) {
+        courseService.deleteCourse(courseId);
+        return "redirect:/course";
+    }
+
+    @RequestMapping(value="/{courseId}/edit")
+    public String editCourse(@PathVariable("courseId") int courseId, ModelMap model) {
+        Course course = courseService.getCourse(courseId);
+        model.addAttribute("course", course);
+        return "course/edit";
+    }
+
+    @RequestMapping(value="/{courseId}/update")
+    public String updateCourse(@ModelAttribute("course") Course course) {
+        courseService.updateCourse(course);
+        return "redirect:/course/" + course.getCourseId();
+    }
+
     @RequestMapping
     public String showCourses(ModelMap model) {
         List<Course> courses = courseService.getAllCourses();

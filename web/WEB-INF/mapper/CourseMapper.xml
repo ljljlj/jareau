@@ -5,4 +5,14 @@
         INSERT INTO course (course_name, teacher, description, category, fee)
         VALUES (#{courseName}, #{teacher}, #{description}, #{category}, #{fee})
     </insert>
+
+    <update id="updateCourse" parameterType="net.yorkjr.jareau.pojo.course.Course">
+        UPDATE course
+        SET course_name = #{courseName},
+            teacher = #{teacher},
+            description = #{description},
+            category = #{category},
+            fee = #{fee}
+        WHERE course_id = #{courseId}
+    </update>
 </mapper>
