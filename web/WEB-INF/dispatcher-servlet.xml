@@ -11,6 +11,7 @@
         <property name="freemarkerSettings">
             <props>
                 <prop key="auto_import">layout/default.ftl as default</prop>
+                <prop key="defaultEncoding">UTF-8</prop>
             </props>
         </property>
     </bean>
@@ -19,5 +20,6 @@
         <property name="cache" value="true"/>
         <property name="prefix" value=""/>
         <property name="suffix" value=".ftl"/>
+        <property name="contentType" value="text/html;charset=utf-8"/>
     </bean>
 </beans>
