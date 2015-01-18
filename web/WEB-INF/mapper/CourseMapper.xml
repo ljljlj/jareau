@@ -1,0 +1,8 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="net.yorkjr.jareau.mapper.CourseMapper">
+    <insert id="createCourse" parameterType="net.yorkjr.jareau.pojo.course.Course" useGeneratedKeys="true" keyProperty="courseId">
+        INSERT INTO course (course_name, teacher, description, category, fee)
+        VALUES (#{courseName}, #{teacher}, #{description}, #{category}, #{fee})
+    </insert>
+</mapper>

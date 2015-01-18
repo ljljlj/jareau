@@ -1,7 +1,7 @@
 package net.yorkjr.jareau.service;
 
 import net.yorkjr.jareau.mapper.CourseMapper;
-import net.yorkjr.jareau.pojo.Course;
+import net.yorkjr.jareau.pojo.course.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +23,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> getAllCourses() {
         return courseMapper.getAllCourses();
+    }
+
+    @Override
+    public void createCourse(Course course) {
+        courseMapper.createCourse(course);
     }
 }

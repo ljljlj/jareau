@@ -1,6 +1,6 @@
 package net.yorkjr.jareau.mapper;
 
-import net.yorkjr.jareau.pojo.Course;
+import net.yorkjr.jareau.pojo.course.Course;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -15,4 +15,6 @@ public interface CourseMapper {
 
     @Select("select * from course")
     List<Course> getAllCourses();
+
+    void createCourse(Course course);
 }

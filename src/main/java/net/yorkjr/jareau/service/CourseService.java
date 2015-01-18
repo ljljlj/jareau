@@ -1,6 +1,6 @@
 package net.yorkjr.jareau.service;
 
-import net.yorkjr.jareau.pojo.Course;
+import net.yorkjr.jareau.pojo.course.Course;
 
 import java.util.List;
 
@@ -10,4 +10,5 @@ import java.util.List;
 public interface CourseService {
     Course getCourse(int courseId);
     List<Course> getAllCourses();
+    void createCourse(Course course);
 }

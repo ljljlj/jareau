@@ -1,13 +1,11 @@
 package net.yorkjr.jareau.controller;
 
-import net.yorkjr.jareau.pojo.Course;
+import net.yorkjr.jareau.pojo.course.Course;
 import net.yorkjr.jareau.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,5 +31,16 @@ public class CourseController {
         List<Course> courses = courseService.getAllCourses();
         model.addAttribute("courses", courses);
         return "course/courses";
+    }
+
+    @RequestMapping(value = "/new")
+    public String newCourse() {
+        return "course/new";
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String doAddCourse(@ModelAttribute("course") Course course) {
+        courseService.createCourse(course);
+        return "redirect:/course/" + course.getCourseId();
     }
 }
