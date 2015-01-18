@@ -36,6 +36,6 @@ public class QuestionController {
     public String printNumber(@PathVariable int id, ModelMap model) {
         Question question = questionService.getQuestionFromId(id);
         model.addAttribute("question", question);
-        return "question";
+        return "exambank/question";
     }
 }
