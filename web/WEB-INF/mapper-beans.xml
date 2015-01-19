@@ -10,6 +10,11 @@
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
 
+    <bean id="sectionMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="net.yorkjr.jareau.mapper.SectionMapper" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
     <bean id="companyAgentMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="mapperInterface" value="net.yorkjr.jareau.mapper.CompanyAgentMapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />

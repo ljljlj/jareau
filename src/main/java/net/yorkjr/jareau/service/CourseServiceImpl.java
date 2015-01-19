@@ -1,9 +1,12 @@
 package net.yorkjr.jareau.service;
 
 import net.yorkjr.jareau.mapper.CourseMapper;
+import net.yorkjr.jareau.mapper.SectionMapper;
 import net.yorkjr.jareau.pojo.course.Course;
+import net.yorkjr.jareau.pojo.course.Section;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,6 +17,9 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseMapper courseMapper;
+
+    @Autowired
+    private SectionMapper sectionMapper;
 
     @Override
     public Course getCourse(int courseId) {
@@ -38,5 +44,15 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void deleteCourse(int courseId) {
         courseMapper.deleteCourse(courseId);
+    }
+
+    @Override
+    public Section getSection(int sectionId) {
+        return sectionMapper.getSectionById(sectionId);
+    }
+
+    @Override
+    public List<Section> getSectionsByCourseId(int courseId) {
+        return sectionMapper.getSectionsByCourseId(courseId);
     }
 }
