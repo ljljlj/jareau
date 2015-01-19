@@ -15,4 +15,6 @@ public interface SectionMapper {
 
     @Select("select * from section where course_id = #{courseId}")
     List<Section> getSectionsByCourseId(@Param("courseId") int courseId);
+
+    void createSection(Section section);
 }

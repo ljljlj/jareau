@@ -54,6 +54,11 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public void createSection(Section section) {
+        sectionMapper.createSection(section);
+    }
+
+    @Override
     public List<Section> getSectionsByCourseId(int courseId) {
         return sectionMapper.getSectionsByCourseId(courseId);
     }

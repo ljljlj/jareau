@@ -2,4 +2,8 @@
 
 <mapper namespace="net.yorkjr.jareau.mapper.SectionMapper">
 
+    <insert id="createSection" parameterType="net.yorkjr.jareau.pojo.course.Section" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO section(course_id, name, description, video_id, section_order, duration, details)
+        VALUES (#{courseId}, #{name}, #{description}, #{videoId}, #{sectionOrder}, #{duration}, #{details})
+    </insert>
 </mapper>

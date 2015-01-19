@@ -19,6 +19,7 @@ public interface CourseService {
 
     /** Course Section **/
     Section getSection(int sectionId);
+    void createSection(Section section);
     List<Section> getSectionsByCourseId(int courseId);
 
     /** Course Category **/

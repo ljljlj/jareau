@@ -10,7 +10,7 @@
         <property name="templateLoaderPath" value="/WEB-INF/views/"/>
         <property name="freemarkerSettings">
             <props>
-                <prop key="auto_import">layout/default.ftl as default</prop>
+                <prop key="auto_import">layout/default.ftl as default, spring.ftl as spring</prop>
                 <prop key="defaultEncoding">UTF-8</prop>
             </props>
         </property>

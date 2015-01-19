@@ -2,6 +2,7 @@ package net.yorkjr.jareau.controller;
 
 import net.yorkjr.jareau.pojo.course.Course;
 import net.yorkjr.jareau.pojo.course.CourseCategory;
+import net.yorkjr.jareau.pojo.course.Section;
 import net.yorkjr.jareau.service.CourseService;
 import net.yorkjr.jareau.service.exceptions.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,9 @@ public class CourseController {
     @RequestMapping(value="/{courseId}")
     public String showCourse(@PathVariable("courseId") int courseId, ModelMap model) {
         Course course = courseService.getCourse(courseId);
+        List<Section> sections = courseService.getSectionsByCourseId(courseId);
         model.addAttribute("course", course);
+        model.addAttribute("sections", sections);
         return "course/course";
     }
 
