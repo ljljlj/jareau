@@ -4,9 +4,11 @@ import net.yorkjr.jareau.mapper.CourseMapper;
 import net.yorkjr.jareau.mapper.SectionMapper;
 import net.yorkjr.jareau.pojo.course.Course;
 import net.yorkjr.jareau.pojo.course.Section;
+import net.yorkjr.jareau.pojo.course.CourseCategory;
+import net.yorkjr.jareau.service.exceptions.AlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -54,5 +56,23 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Section> getSectionsByCourseId(int courseId) {
         return sectionMapper.getSectionsByCourseId(courseId);
+    }
+
+    public void createCourseCategory(String categoryName) throws AlreadyExistsException {
+        try {
+            courseMapper.createCourseCategory(categoryName);
+        } catch (DuplicateKeyException e) {
+            throw new AlreadyExistsException("Course category " + categoryName + " already exists.", e);
+        }
+    }
+
+    @Override
+    public void deleteCourseCategory(int categoryId) {
+        courseMapper.deleteCourseCategory(categoryId);
+    }
+
+    @Override
+    public List<CourseCategory> listCourseCategory() {
+        return courseMapper.listCourseCategory();
     }
 }

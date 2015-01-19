@@ -1,6 +1,7 @@
 <@default.layout "All Courses">
 
 <a role="button" class="btn btn-primary" href="/course/new">新建课程</a>
+<a role="button" class="btn btn-primary" href="/course/category">课程分类管理</a>
 
 <table class="table" xmlns="http://www.w3.org/1999/html">
     <thead>
@@ -22,8 +23,8 @@
             <td>${course.teacher}</td>
             <td>#{course.fee}</td>
             <td>
-                <a type="button" class="btn btn-default btn-xs" href="course/#{course.courseId}/edit" role="button">修改</a>
-                <a type="button" class="btn btn-default btn-xs" href="course/#{course.courseId}/del" role="button">删除</a>
+                <a type="button" class="btn btn-default btn-xs" href="/course/#{course.courseId}/edit" role="button">修改</a>
+                <a type="button" class="btn btn-default btn-xs" href="/course/#{course.courseId}/del" role="button">删除</a>
             </td>
         </tr>
         </#list>
