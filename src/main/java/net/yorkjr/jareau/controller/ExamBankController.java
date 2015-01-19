@@ -80,4 +80,13 @@ public class ExamBankController {
         log.info(String.format("Question %s for exam bank %s saved", question, examBank));
         return "redirect:/exambank/" + examBankId;
     }
+
+    @RequestMapping(value="/{examBankId}/question/{questionId}/remove")
+    public String removeQuestionFromExamBank(@PathVariable("examBankId") long examBankId,
+                                             @PathVariable("questionId") long questionId, ModelMap model) {
+        ExamBank examBank = examBankManager.getExamBank(examBankId);
+        Question question = questionService.getQuestionFromId(questionId);
+        examBankManager.removeQuestionFromExamBank(question, examBank);
+        return "redirect:/exambank/" + examBankId;
+    }
 }

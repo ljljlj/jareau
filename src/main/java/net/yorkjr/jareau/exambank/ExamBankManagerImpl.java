@@ -48,6 +48,11 @@ public class ExamBankManagerImpl implements ExamBankManager {
     }
 
     @Override
+    public void removeQuestionFromExamBank(Question question, ExamBank examBank) {
+        dataAccessor.removeQuestionFromExamBank(question.getQuestionId(), examBank.getExamBankId());
+    }
+
+    @Override
     public long createExamBank(String name, String description) {
         ExamBankEntity examBank = new ExamBankEntity();
         examBank.setName(name);

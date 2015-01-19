@@ -31,6 +31,12 @@
         ]]>
     </insert>
 
+    <delete id="removeQuestionFromExamBank" parameterType="Map">
+        <![CDATA[
+        delete from EXAMBANK_QUESTIONS where EXAMBANK_ID = #{1} and QUESTION_ID = #{0}
+        ]]>
+    </delete>
+
     <insert id="createExamBank" parameterType="net.yorkjr.jareau.exambank.dao.ExamBankEntity" useGeneratedKeys="true">
         <selectKey resultType="long" keyProperty="examBankId" order="AFTER">
             SELECT LAST_INSERT_ID()
