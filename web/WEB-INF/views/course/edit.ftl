@@ -8,7 +8,7 @@
             <@bs_form.input_row "courseName" "课程名称" "${course.courseName}" />
             <@bs_form.input_row "category" "类别" "${course.category}" "例如:高级" />
             <@bs_form.input_row "teacher" "讲师" "${course.teacher}" />
-            <@bs_form.input_row "fee" "费用" "${course.fee}" />
+            <@bs_form.input_row "fee" "费用" "#{course.fee}" />
             <@bs_form.input_row "description" "简介" "${course.description}" />
             <div class="form-group">
                 <label class="col-sm-2 control-label"> </label>
