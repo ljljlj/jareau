@@ -6,6 +6,7 @@ import net.yorkjr.jareau.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +23,9 @@ public class SectionController {
         Section section = courseService.getSection(sectionId);
         Course course = courseService.getCourse(section.getCourseId());
         List<Section> relatedSections = courseService.getSectionsByCourseId(section.getCourseId());
-        model.addAttribute("section", section);
+        model.addAttribute(section);
+        model.addAttribute(course);
         model.addAttribute("relatedSections", relatedSections);
-        model.addAttribute("course", course);
         return "section/section";
     }
 
@@ -34,15 +35,20 @@ public class SectionController {
         section.setCourseId(courseId);
         Course course = courseService.getCourse(courseId);
 
-        model.addAttribute("section", section);
-        model.addAttribute("course", course);
+        model.addAttribute(section);
+        model.addAttribute(course);
 
         return "section/new";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String doAddCourse(@ModelAttribute("section") Section section) {
-        courseService.createSection(section);
-        return "redirect:/course/" + section.getCourseId();
+    public String doAddCourse(@ModelAttribute Section section, BindingResult bindingResult, ModelMap model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute(courseService.getCourse(section.getCourseId()));
+            return "section/new";
+        } else {
+            courseService.createSection(section);
+            return "redirect:/course/" + section.getCourseId();
+        }
     }
 }
