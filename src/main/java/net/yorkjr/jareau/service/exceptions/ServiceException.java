@@ -3,7 +3,7 @@ package net.yorkjr.jareau.service.exceptions;
 /**
  * Created by lijunbo on 15/1/19.
  */
-public class ServiceException extends RuntimeException {
+public class ServiceException extends Exception {
     public ServiceException(String message) {
         super(message);
     }

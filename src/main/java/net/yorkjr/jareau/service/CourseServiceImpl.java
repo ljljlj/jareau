@@ -1,8 +1,10 @@
 package net.yorkjr.jareau.service;
 
 import net.yorkjr.jareau.mapper.CourseMapper;
+import net.yorkjr.jareau.mapper.ProgramMapper;
 import net.yorkjr.jareau.mapper.SectionMapper;
 import net.yorkjr.jareau.pojo.course.Course;
+import net.yorkjr.jareau.pojo.course.Program;
 import net.yorkjr.jareau.pojo.course.Section;
 import net.yorkjr.jareau.pojo.course.CourseCategory;
 import net.yorkjr.jareau.service.exceptions.AlreadyExistsException;
@@ -22,6 +24,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private SectionMapper sectionMapper;
+
+    @Autowired
+    private ProgramMapper programMapper;
 
     @Override
     public Course getCourse(int courseId) {
@@ -79,5 +84,50 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<CourseCategory> listCourseCategory() {
         return courseMapper.listCourseCategory();
+    }
+
+    @Override
+    public List<Program> listProgram() {
+        return programMapper.listProgram();
+    }
+
+    @Override
+    public void createProgram(Program program) throws AlreadyExistsException {
+        try {
+            programMapper.createProgram(program);
+        } catch (DuplicateKeyException e) {
+            throw new AlreadyExistsException("Program " + program.getProgramName() + " already exists.", e);
+        }
+    }
+
+    @Override
+    public void deleteProgram(int programId) {
+        programMapper.removeProgramMap(programId);
+        programMapper.deleteProgram(programId);
+    }
+
+    @Override
+    public void addCourseToProgram(int programId, int courseId) {
+        programMapper.addCourseToProgram(programId, courseId);
+    }
+
+    @Override
+    public void removeCourseFromProgram(int programId, int courseId) {
+        programMapper.removeCourseFromProgram(programId, courseId);
+    }
+
+    @Override
+    public List<Course> listCourseOfProgram(int programId) {
+        return programMapper.listCourseOfProgram(programId);
+    }
+
+    @Override
+    public List<Course> listCourseOfNotProgram(int programId) {
+        return programMapper.listCourseOfNotProgram(programId);
+    }
+
+    @Override
+    public Program getProgram(int programId) {
+        return programMapper.getProgram(programId);
     }
 }

@@ -5,6 +5,11 @@
 
     <import resource="spring-dao.xml" />
 
+    <bean id="programMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="net.yorkjr.jareau.mapper.ProgramMapper" />
+        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+    </bean>
+
     <bean id="courseMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="mapperInterface" value="net.yorkjr.jareau.mapper.CourseMapper" />
         <property name="sqlSessionFactory" ref="sqlSessionFactory" />

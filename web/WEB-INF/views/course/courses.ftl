@@ -2,6 +2,7 @@
 
 <a role="button" class="btn btn-primary" href="/course/new">新建课程</a>
 <a role="button" class="btn btn-primary" href="/course/category">课程分类管理</a>
+<a role="button" class="btn btn-primary" href="/program">培训项目管理</a>
 
 <table class="table" xmlns="http://www.w3.org/1999/html">
     <thead>

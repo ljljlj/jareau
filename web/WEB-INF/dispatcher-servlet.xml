@@ -12,6 +12,7 @@
             <props>
                 <prop key="auto_import">layout/default.ftl as default, spring.ftl as spring</prop>
                 <prop key="defaultEncoding">UTF-8</prop>
+                <prop key="number_format">#</prop>
             </props>
         </property>
     </bean>
